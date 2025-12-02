@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nicolás Vicencio | Portafolio Dev</title>
+    
+    <!-- Fuentes Modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Librería de Animaciones (AOS) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* --- CONFIGURACIÓN ESTÉTICA --- */
+        :root {
+            --bg-dark: #09090b;
+            --card-bg: #18181b;
+            --primary: #8b5cf6; /* Violeta */
+            --secondary: #22d3ee; /* Cyan */
+            --ai-color: #f472b6; /* Rosa IA */
+            --text-main: #ffffff;
+            --text-gray: #a1a1aa;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, transparent 40%);
+        }
+
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+
+        /* --- NAVBAR --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            background: rgba(9, 9, 11, 0.7);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo { font-size: 1.4rem; font-weight: 700; }
+        .logo span { color: var(--primary); }
+
+        .availability {
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.1);
+            color: #4ade80;
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+        .dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        /* --- HERO --- */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 100px 20px 0;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        
+        .hero h1 .highlight {
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            max-width: 650px;
+            margin-bottom: 30px;
+        }
+
+        .tech-pill-container { display: flex; gap: 10px; margin-bottom: 40px; justify-content: center; flex-wrap: wrap; }
+        .tech-pill {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* --- PROJECTS --- */
+        .section { padding: 6rem 10%; }
+        .section-title { font-size: 2.2rem; margin-bottom: 3rem; border-left: 5px solid var(--primary); padding-left: 15px; }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 25px;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover { transform: translateY(-7px); border-color: var(--secondary); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+
+        .card h3 { margin-bottom: 10px; font-size: 1.4rem; color: white; }
+        .card p { color: var(--text-gray); margin-bottom: 20px; flex-grow: 1; }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .tag { font-size: 0.75rem; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 5px; color: var(--secondary); }
+        .tag.ai { color: var(--ai-color); border: 1px solid rgba(244, 114, 182, 0.2); }
+
+        .btn-card {
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .btn-card:hover { background: var(--primary); }
+
+        /* --- SKILLS & WORKFLOW SECTION --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-box {
+            background: rgba(255,255,255,0.02);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .skill-box h4 { margin-bottom: 20px; color: var(--text-main); font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+        .skill-list { list-style: none; }
+        .skill-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+        .skill-list li i { width: 20px; text-align: center; }
+
+        /* Highlight for specific tools */
+        .highlight-text { color: var(--ai-color); font-weight: 600; }
+        .soft-skill-badge {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-left: auto;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-gray);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .socials { font-size: 1.5rem; margin-bottom: 15px; }
+        .socials a { color: white; margin: 0 10px; transition: 0.3s; }
+        .socials a:hover { color: var(--primary); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .section { padding: 4rem 6%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Niconixc<span>.</span></div>
+        <div class="availability">
+            <span class="dot"></span> Open to Work
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1 data-aos="fade-up">
+            Ingeniería & <br> <span class="highlight">Desarrollo Web</span>
+        </h1>
+        
+        <p data-aos="fade-up" data-aos-delay="100">
+            Soy <strong>Nicolás Vicencio</strong>, estudiante de 3er año en INACAP. <br>
+            Me enfoco en el desarrollo ágil usando herramientas de <strong>Inteligencia Artificial</strong> para crear código limpio y eficiente.
+        </p>
+
+        <!-- Píldoras de Tecnología Principales -->
+        <div class="tech-pill-container" data-aos="fade-up" data-aos-delay="200">
+            <div class="tech-pill"><i class="fab fa-python" style="color:#3776ab"></i> Python</div>
+            <div class="tech-pill"><i class="fab fa-react" style="color:#61dafb"></i> React</div>
+            <div class="tech-pill"><i class="fas fa-database" style="color:#336791"></i> PostgreSQL</div>
+            <div class="tech-pill" style="border-color: var(--ai-color); color: var(--ai-color);"><i class="fas fa-robot"></i> AI Assisted</div>
+        </div>
+
+        <div data-aos="fade-up" data-aos-delay="300">
+            <a href="#proyectos" style="color: white; text-decoration: none; border-bottom: 1px solid var(--primary); padding-bottom: 5px;">Ver mis trabajos <i class="fas fa-arrow-down"></i></a>
+        </div>
+    </section>
+
+    <!-- Proyectos -->
+    <section class="section" id="proyectos">
+        <h2 class="section-title">Proyectos Destacados</h2>
+        
+        <div class="projects-grid">
+            
+            <!-- Proyecto 1 -->
+            <div class="card" data-aos="fade-up">
+                <h3><i class="fab fa-react" style="color: var(--secondary);"></i> Front App Entrevista</h3>
+                <p>Interfaz moderna desarrollada con React y Vite. Enfocada en la experiencia de usuario y componentes reutilizables.</p>
+                <div class="tags">
+                    <span class="tag">React</span>
+                    <span class="tag">Vite</span>
+                    <span class="tag">UX/UI</span>
+                </div>
+                <a href="https://github.com/Niconixc/Front-web-APPENTREVISTA" target="_blank" class="btn-card">Ver Código GitHub</a>
+            </div>
+
+            <!-- Proyecto 2 (BACKEND + AI) -->
+            <div class="card" data-aos="fade-up" data-aos-delay="100" style="border-color: rgba(244, 114, 182, 0.3);">
+                <h3><i class="fas fa-server" style="color: var(--primary);"></i> App Backend & IA</h3>
+                <p>Sistema backend para gestión de entrevistas. Código optimizado utilizando herramientas de asistencia por Inteligencia Artificial.</p>
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Django</span>
+                    <span class="tag ai">Kiro Amazon</span>
+                    <span class="tag ai">Antigravity AI</span>
+                </div>
+                <a href="https://github.com/Niconixc/EntrevistaAPPBack" target="_blank" class="btn-card">Ver Código GitHub</a>
+            </div>
+
+            <!-- Proyecto 3 -->
+            <div class="card" data-aos="fade-up" data-aos-delay="200">
+                <h3><i class="fas fa-shopping-cart" style="color: var(--secondary);"></i> TiendaTech</h3>
+                <p>E-commerce completo. Manejo de base de datos relacional, control de stock y panel administrativo.</p>
+                <div class="tags">
+                    <span class="tag">Django</span>
+                    <span class="tag">PostgreSQL</span>
+                    <span class="tag">Fullstack</span>
+                </div>
+                <a href="https://github.com/Niconixc/tiendatech" target="_blank" class="btn-card">Ver Código GitHub</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Skills & Workflow (Lo nuevo) -->
+    <section class="section">
+        <h2 class="section-title">Habilidades y Flujo de Trabajo</h2>
+        
+        <div class="skills-grid">
+            
+            <!-- Columna 1: Stack Técnico -->
+            <div class="skill-box" data-aos="fade-right">
+                <h4 style="color: var(--secondary);"><i class="fas fa-code"></i> Desarrollo</h4>
+                <ul class="skill-list">
+                    <li><i class="fab fa-python"></i> Python (Django/Flask)</li>
+                    <li><i class="fab fa-js"></i> JavaScript (React)</li>
+                    <li><i class="fas fa-database"></i> SQL (PostgreSQL / SQLite)</li>
+                    <li><i class="fab fa-html5"></i> HTML5 & CSS3</li>
+                </ul>
+            </div>
+
+            <!-- Columna 2: Workflow & Herramientas -->
+            <div class="skill-box" data-aos="fade-up">
+                <h4 style="color: var(--primary);"><i class="fas fa-tools"></i> Herramientas</h4>
+                <ul class="skill-list">
+                    <li><i class="fab fa-git-alt" style="color: #f05032;"></i> <strong>Git / GitHub</strong> (Control de versiones)</li>
+                    <li><i class="fas fa-rocket" style="color: #ff6c37;"></i> <strong>Postman</strong> (Testing de APIs)</li>
+                    <li><i class="fab fa-trello" style="color: #0079bf;"></i> <strong>Trello</strong> (Gestión Ágil)</li>
+                    <li><i class="fas fa-terminal"></i> Terminal Linux</li>
+                </ul>
+            </div>
+
+            <!-- Columna 3: Habilidades Blandas & IA -->
+            <div class="skill-box" data-aos="fade-left">
+                <h4 style="color: var(--ai-color);"><i class="fas fa-brain"></i> IA & Soft Skills</h4>
+                <ul class="skill-list">
+                    <li>
+                        <i class="fas fa-users"></i> Trabajo en Equipo 
+                        <span class="soft-skill-badge">Fuerte</span>
+                    </li>
+                    <li><i class="fas fa-lightbulb"></i> Resolución de Problemas</li>
+                    <li style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+                        <span style="font-size: 0.85rem; color: var(--ai-color);">CODING ASSISTANTS:</span>
+                    </li>
+                    <li class="highlight-text"><i class="fas fa-magic"></i> Amazon Kiro</li>
+                    <li class="highlight-text"><i class="fas fa-magic"></i> Antigravity</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="socials">
+            <a href="https://github.com/Niconixc" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="mailto:nvicencio@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p>Desarrollado por Nicolás Vicencio © 2024</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+    </script>
+</body>
+</html>
