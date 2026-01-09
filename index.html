@@ -435,13 +435,36 @@
             text-decoration: none;
             color: white;
             font-weight: 600;
-            transition: 0.2s;
+            transition: all 0.3s ease;
             border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efecto de brillo/shine */
+        .btn-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.3),
+                    transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-card:hover::before {
+            left: 100%;
         }
 
         .btn-card:hover {
             background: var(--primary);
             border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 5px 25px rgba(139, 92, 246, 0.4);
         }
 
         /* --- SKILLS --- */
@@ -633,7 +656,7 @@
         </h1>
 
         <p data-aos="fade-up" data-aos-delay="100">
-            Soy <strong>Nicolás Vicencio</strong>, estudiante de 3er año en INACAP. <br>
+            Soy <strong>Nicolás Vicencio</strong>, estudiante de 4to año en INACAP. <br>
             Creo soluciones digitales combinando desarrollo ágil, bases de datos y herramientas de <strong>Inteligencia
                 Artificial</strong>.
         </p>
